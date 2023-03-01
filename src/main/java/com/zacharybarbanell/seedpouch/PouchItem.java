@@ -48,6 +48,7 @@ import java.util.function.Supplier;
 import com.zacharybarbanell.seedpouch.helper.EntityHelper;
 //import vazkii.botania.common.helper.InventoryHelper;
 //import vazkii.botania.xplat.XplatAbstractions;
+import com.zacharybarbanell.seedpouch.helper.ItemBackedInventory;
 
 import java.util.stream.IntStream;
 

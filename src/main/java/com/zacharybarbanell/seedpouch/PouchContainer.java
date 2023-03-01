@@ -27,7 +27,6 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.NotNull;
 
 import com.zacharybarbanell.seedpouch.helper.SlotLocked;
-import com.zacharybarbanell.seedpouch.SeedPouch;
 
 //import vazkii.botania.client.gui.SlotLocked;
 //import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
@@ -53,19 +52,21 @@ public class PouchContainer extends AbstractContainerMenu {
 	}
 
 	private final ItemStack bag;
+	public final PouchItem bagType;
 	public final Container bagInv;
 
 	public PouchContainer(int windowId, Inventory playerInv, ItemStack bag, PouchItem bagType) {
 		super(PouchContainer.getMenuType(bagType), windowId);
 
 		this.bag = bag;
+		this.bagType = bagType;
 		if (!playerInv.player.level.isClientSide) {
 			bagInv = bagType.getInventory(bag);
 		} else {
 			bagInv = new SimpleContainer(bagType.getSlots().size());
 		}
 
-		//TODO make it look nicer
+		// TODO make it look nicer
 		for (int row = 0; row < 1; ++row) {
 			for (int col = 0; col < 8; ++col) {
 				int slot = col + row * 8;
@@ -78,14 +79,14 @@ public class PouchContainer extends AbstractContainerMenu {
 			}
 		}
 
-		//player inventory
+		// player inventory
 		for (int row = 0; row < 3; ++row) {
 			for (int col = 0; col < 9; ++col) {
 				addSlot(new Slot(playerInv, col + row * 9 + 9, 8 + col * 18, 120 + row * 18));
 			}
 		}
 
-		//player hotbar	
+		// player hotbar
 		for (int i = 0; i < 9; ++i) {
 			if (playerInv.getItem(i) == bag) {
 				addSlot(new SlotLocked(playerInv, i, 8 + i * 18, 178));
@@ -108,48 +109,49 @@ public class PouchContainer extends AbstractContainerMenu {
 	public ItemStack quickMoveStack(Player player, int slotIndex) {
 		throw new NotImplementedException();
 		/*
-		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = slots.get(slotIndex);
-
-		if (slot.hasItem()) {
-			ItemStack itemstack1 = slot.getItem();
-			itemstack = itemstack1.copy();
-
-			if (slotIndex < 32) { 
-				if (!moveItemStackTo(itemstack1, 32, 68, true)) {
-					return ItemStack.EMPTY;
-				}
-			} else {
-				Block b = Block.byItem(itemstack.getItem());
-				int slotId = -1;
-				if (b instanceof BotaniaDoubleFlowerBlock flower) {
-					slotId = 16 + flower.color.getId();
-				} else if (b instanceof BotaniaFlowerBlock flower) {
-					slotId = flower.color.getId();
-				}
-				if (slotId >= 0 && slotId < 32) {
-					Slot destination = slots.get(slotId);
-					if (destination.mayPlace(itemstack) && !moveItemStackTo(itemstack1, slotId, slotId + 1, true)) {
-						return ItemStack.EMPTY;
-					}
-				}
-			}
-
-			if (itemstack1.isEmpty()) {
-				slot.set(ItemStack.EMPTY);
-			} else {
-				slot.setChanged();
-			}
-
-			if (itemstack1.getCount() == itemstack.getCount()) {
-				return ItemStack.EMPTY;
-			}
-
-			slot.onTake(player, itemstack1);
-		}
-
-		return itemstack;
-		*/
+		 * ItemStack itemstack = ItemStack.EMPTY;
+		 * Slot slot = slots.get(slotIndex);
+		 * 
+		 * if (slot.hasItem()) {
+		 * ItemStack itemstack1 = slot.getItem();
+		 * itemstack = itemstack1.copy();
+		 * 
+		 * if (slotIndex < 32) {
+		 * if (!moveItemStackTo(itemstack1, 32, 68, true)) {
+		 * return ItemStack.EMPTY;
+		 * }
+		 * } else {
+		 * Block b = Block.byItem(itemstack.getItem());
+		 * int slotId = -1;
+		 * if (b instanceof BotaniaDoubleFlowerBlock flower) {
+		 * slotId = 16 + flower.color.getId();
+		 * } else if (b instanceof BotaniaFlowerBlock flower) {
+		 * slotId = flower.color.getId();
+		 * }
+		 * if (slotId >= 0 && slotId < 32) {
+		 * Slot destination = slots.get(slotId);
+		 * if (destination.mayPlace(itemstack) && !moveItemStackTo(itemstack1, slotId,
+		 * slotId + 1, true)) {
+		 * return ItemStack.EMPTY;
+		 * }
+		 * }
+		 * }
+		 * 
+		 * if (itemstack1.isEmpty()) {
+		 * slot.set(ItemStack.EMPTY);
+		 * } else {
+		 * slot.setChanged();
+		 * }
+		 * 
+		 * if (itemstack1.getCount() == itemstack.getCount()) {
+		 * return ItemStack.EMPTY;
+		 * }
+		 * 
+		 * slot.onTake(player, itemstack1);
+		 * }
+		 * 
+		 * return itemstack;
+		 */
 	}
 
 }

@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package com.zacharybarbanell.seedpouch;
+package com.zacharybarbanell.seedpouch.helper;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -14,8 +14,6 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-
-import com.zacharybarbanell.seedpouch.helper.ItemNBTHelper;
 
 /**
  * An inventory that writes into the provided stack's NBT on save
