@@ -1,20 +1,15 @@
 package com.zacharybarbanell.seedpouch;
 
-import com.mojang.logging.LogUtils;
-import net.minecraft.client.Minecraft;
+//import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -22,7 +17,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Arrays;
 
-import org.slf4j.Logger;
+//import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SeedPouch.MODID)
@@ -30,7 +25,7 @@ public class SeedPouch {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "seedpouch";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    //private static final Logger LOGGER = LogUtils.getLogger();
     // Create a Deferred Register to hold Items which will all be registered under
     // the "seedpouch" namespace
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
@@ -69,11 +64,9 @@ public class SeedPouch {
     }
 
     public void onClientSetup(FMLClientSetupEvent event) {
-        LOGGER.info("HELLO FROM CLIENT SETUP");
         event.enqueueWork(
                 () -> {
                     MenuScreens.register(SEED_POUCH_MENU.get(), PouchScreen::new);
-                    LOGGER.info("did the thing");
                 });
     }
 }

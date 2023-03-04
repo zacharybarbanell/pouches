@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
 //import vazkii.botania.api.BotaniaAPI;
 //import vazkii.botania.common.block.tile.TileSimpleInventory;
-//import vazkii.botania.mixin.AccessorHopperBlockEntity;
+import com.zacharybarbanell.seedpouch.mixin.HopperBlockEntityAccessor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -53,41 +53,14 @@ public class InventoryHelper {
     // [VanillaCopy] HopperBlockEntity without modifying the destination inventory. `stack` is still modified
 	private static ItemStack simulateTransfer(Container to, ItemStack stack, int slot, @Nullable Direction direction) {
 		ItemStack itemStack = to.getItem(slot);
-		if (AccessorHopperBlockEntity.botania_canInsert(to, stack, slot, direction)) {
-			boolean bl = false;
-			boolean bl2 = to.isEmpty();
+		if (HopperBlockEntityAccessor.canInsert(to, stack, slot, direction)) {
 			if (itemStack.isEmpty()) {
-				// to.setStack(slot, stack);
 				stack = ItemStack.EMPTY;
-				bl = true;
-			} else if (AccessorHopperBlockEntity.botania_canMerge(itemStack, stack)) {
+			} else if (HopperBlockEntityAccessor.canMerge(itemStack, stack)) {
 				int i = stack.getMaxStackSize() - itemStack.getCount();
 				int j = Math.min(stack.getCount(), i);
 				stack.shrink(j);
-				// itemStack.increment(j);
-				bl = j > 0;
 			}
-
-			/*
-			if (bl) {
-				if (bl2 && to instanceof HopperBlockEntity) {
-					HopperBlockEntity hopperBlockEntity = (HopperBlockEntity)to;
-					if (!hopperBlockEntity.isDisabled()) {
-						int k = 0;
-						if (from instanceof HopperBlockEntity) {
-							HopperBlockEntity hopperBlockEntity2 = (HopperBlockEntity)from;
-							if (hopperBlockEntity.lastTickTime >= hopperBlockEntity2.lastTickTime) {
-								k = 1;
-							}
-						}
-			
-						hopperBlockEntity.setCooldown(8 - k);
-					}
-				}
-			
-				to.markDirty();
-			}
-			*/
 		}
 
 		return stack;

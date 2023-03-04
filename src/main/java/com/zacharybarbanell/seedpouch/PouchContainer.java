@@ -54,23 +54,25 @@ public class PouchContainer extends AbstractContainerMenu {
 	private final ItemStack bag;
 	public final PouchItem bagType;
 	public final Container bagInv;
+	public final int containerRows;
 
 	public PouchContainer(int windowId, Inventory playerInv, ItemStack bag, PouchItem bagType) {
 		super(PouchContainer.getMenuType(bagType), windowId);
 
 		this.bag = bag;
 		this.bagType = bagType;
+		this.containerRows = 6;
 		if (!playerInv.player.level.isClientSide) {
 			bagInv = bagType.getInventory(bag);
 		} else {
-			bagInv = new SimpleContainer(bagType.getSlots().size());
+			bagInv = new SimpleContainer(bagType.getSize());
 		}
 
-		// TODO make it look nicer
+		// TODO
 		for (int row = 0; row < 1; ++row) {
-			for (int col = 0; col < 8; ++col) {
+			for (int col = 0; col < bagType.getSize(); ++col) {
 				int slot = col + row * 8;
-				addSlot(new Slot(bagInv, slot, 17 + col * 18, 26 + row * 18) {
+				addSlot(new Slot(bagInv, slot, 8 + col * 18, 18 + row * 18) {
 					@Override
 					public boolean mayPlace(@NotNull ItemStack stack) {
 						return bagType.isValid(this.getContainerSlot(), stack);
@@ -79,19 +81,21 @@ public class PouchContainer extends AbstractContainerMenu {
 			}
 		}
 
+		int offset = (this.containerRows - 4) * 18;
+
 		// player inventory
 		for (int row = 0; row < 3; ++row) {
 			for (int col = 0; col < 9; ++col) {
-				addSlot(new Slot(playerInv, col + row * 9 + 9, 8 + col * 18, 120 + row * 18));
+				addSlot(new Slot(playerInv, col + row * 9 + 9, 8 + col * 18, 103 + row * 18 + offset));
 			}
 		}
 
 		// player hotbar
 		for (int i = 0; i < 9; ++i) {
 			if (playerInv.getItem(i) == bag) {
-				addSlot(new SlotLocked(playerInv, i, 8 + i * 18, 178));
+				addSlot(new SlotLocked(playerInv, i, 8 + i * 18, 161 + offset));
 			} else {
-				addSlot(new Slot(playerInv, i, 8 + i * 18, 178));
+				addSlot(new Slot(playerInv, i, 8 + i * 18, 161 + offset));
 			}
 		}
 

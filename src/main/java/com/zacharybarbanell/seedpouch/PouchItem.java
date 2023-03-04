@@ -46,6 +46,7 @@ import java.util.function.Supplier;
 //import vazkii.botania.common.block.BotaniaDoubleFlowerBlock;
 //import vazkii.botania.common.block.BotaniaFlowerBlock;
 import com.zacharybarbanell.seedpouch.helper.EntityHelper;
+import com.zacharybarbanell.seedpouch.helper.InventoryHelper;
 //import vazkii.botania.common.helper.InventoryHelper;
 //import vazkii.botania.xplat.XplatAbstractions;
 import com.zacharybarbanell.seedpouch.helper.ItemBackedInventory;
@@ -203,13 +204,12 @@ public class PouchItem extends Item {
 	public boolean overrideStackedOnOther(
 			@NotNull ItemStack bag, @NotNull Slot slot,
 			@NotNull ClickAction clickAction, @NotNull Player player) {
-		return false; // TODO implement this
-		/*
-		 * return InventoryHelper.overrideStackedOnOther(
-		 * FlowerPouchItem::getInventory,
-		 * player.containerMenu instanceof FlowerPouchContainer,
-		 * bag, slot, clickAction, player);
-		 */
+
+		return InventoryHelper.overrideStackedOnOther(
+				this::getInventory,
+				player.containerMenu instanceof PouchContainer p && p.bagType == this,
+				bag, slot, clickAction, player);
+
 	}
 
 	@Override
@@ -217,13 +217,11 @@ public class PouchItem extends Item {
 			@NotNull ItemStack bag, @NotNull ItemStack toInsert,
 			@NotNull Slot slot, @NotNull ClickAction clickAction,
 			@NotNull Player player, @NotNull SlotAccess cursorAccess) {
-		return false; // TODO implement this
-		/*
-		 * 
-		 * return InventoryHelper.overrideOtherStackedOnMe(
-		 * FlowerPouchItem::getInventory,
-		 * player.containerMenu instanceof FlowerPouchContainer,
-		 * bag, toInsert, clickAction, cursorAccess);
-		 */
+
+		return InventoryHelper.overrideOtherStackedOnMe(
+				this::getInventory,
+				player.containerMenu instanceof PouchContainer p && p.bagType == this,
+				bag, toInsert, clickAction, cursorAccess);
+
 	}
 }
