@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package com.zacharybarbanell.seedpouch.mixin;
+package com.zacharybarbanell.seedpouch.mixins;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;

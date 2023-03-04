@@ -18,12 +18,10 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
-//import vazkii.botania.api.BotaniaAPI;
-//import vazkii.botania.common.block.tile.TileSimpleInventory;
-import com.zacharybarbanell.seedpouch.mixin.HopperBlockEntityAccessor;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.zacharybarbanell.seedpouch.mixins.HopperBlockEntityAccessor;
 
 import java.util.function.Function;
 
