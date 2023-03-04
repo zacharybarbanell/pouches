@@ -52,7 +52,6 @@ public class PouchScreen extends AbstractContainerScreen<PouchContainer> {
         this.blit(ms, k, l, 0, 0, this.imageWidth, this.containerRows * 18 + 17);
         this.blit(ms, k, l + this.containerRows * 18 + 17, 0, 126, this.imageWidth, 96);
 
-        
         for (Slot slot : menu.slots) {
             if (slot.container == menu.bagInv) {
                 int x = this.leftPos + slot.x;

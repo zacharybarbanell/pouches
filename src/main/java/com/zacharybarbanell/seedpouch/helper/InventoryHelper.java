@@ -48,7 +48,8 @@ public class InventoryHelper {
 		return stack;
 	}
 
-    // [VanillaCopy] HopperBlockEntity without modifying the destination inventory. `stack` is still modified
+	// [VanillaCopy] HopperBlockEntity without modifying the destination inventory.
+	// `stack` is still modified
 	private static ItemStack simulateTransfer(Container to, ItemStack stack, int slot, @Nullable Direction direction) {
 		ItemStack itemStack = to.getItem(slot);
 		if (HopperBlockEntityAccessor.canInsert(to, stack, slot, direction)) {
