@@ -23,7 +23,6 @@ import net.minecraftforge.common.extensions.IForgeMenuType;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.NotNull;
 
 import com.zacharybarbanell.seedpouch.helper.SlotLocked;
@@ -111,51 +110,44 @@ public class PouchContainer extends AbstractContainerMenu {
 	@NotNull
 	@Override
 	public ItemStack quickMoveStack(Player player, int slotIndex) {
-		throw new NotImplementedException();
-		/*
-		 * ItemStack itemstack = ItemStack.EMPTY;
-		 * Slot slot = slots.get(slotIndex);
-		 * 
-		 * if (slot.hasItem()) {
-		 * ItemStack itemstack1 = slot.getItem();
-		 * itemstack = itemstack1.copy();
-		 * 
-		 * if (slotIndex < 32) {
-		 * if (!moveItemStackTo(itemstack1, 32, 68, true)) {
-		 * return ItemStack.EMPTY;
-		 * }
-		 * } else {
-		 * Block b = Block.byItem(itemstack.getItem());
-		 * int slotId = -1;
-		 * if (b instanceof BotaniaDoubleFlowerBlock flower) {
-		 * slotId = 16 + flower.color.getId();
-		 * } else if (b instanceof BotaniaFlowerBlock flower) {
-		 * slotId = flower.color.getId();
-		 * }
-		 * if (slotId >= 0 && slotId < 32) {
-		 * Slot destination = slots.get(slotId);
-		 * if (destination.mayPlace(itemstack) && !moveItemStackTo(itemstack1, slotId,
-		 * slotId + 1, true)) {
-		 * return ItemStack.EMPTY;
-		 * }
-		 * }
-		 * }
-		 * 
-		 * if (itemstack1.isEmpty()) {
-		 * slot.set(ItemStack.EMPTY);
-		 * } else {
-		 * slot.setChanged();
-		 * }
-		 * 
-		 * if (itemstack1.getCount() == itemstack.getCount()) {
-		 * return ItemStack.EMPTY;
-		 * }
-		 * 
-		 * slot.onTake(player, itemstack1);
-		 * }
-		 * 
-		 * return itemstack;
-		 */
+
+		ItemStack itemstack = ItemStack.EMPTY;
+		Slot slot = slots.get(slotIndex);
+
+		if (slot.hasItem()) {
+			ItemStack itemstack1 = slot.getItem();
+			itemstack = itemstack1.copy();
+
+			if (slotIndex < this.bagType.getSize()) {
+				if (!moveItemStackTo(itemstack1, this.bagType.getSize(), this.bagType.getSize() + 36, true)) {
+					return ItemStack.EMPTY;
+				}
+			} else {
+				Integer slotId = this.bagType.getSlots().inverse().get(itemstack.getItem());
+				if (slotId != null) {
+					Slot destination = slots.get(slotId);
+					if (destination.mayPlace(itemstack) && !moveItemStackTo(itemstack1, slotId,
+							slotId + 1, true)) {
+						return ItemStack.EMPTY;
+					}
+				}
+			}
+
+			if (itemstack1.isEmpty()) {
+				slot.set(ItemStack.EMPTY);
+			} else {
+				slot.setChanged();
+			}
+
+			if (itemstack1.getCount() == itemstack.getCount()) {
+				return ItemStack.EMPTY;
+			}
+
+			slot.onTake(player, itemstack1);
+		}
+
+		return itemstack;
+
 	}
 
 }
