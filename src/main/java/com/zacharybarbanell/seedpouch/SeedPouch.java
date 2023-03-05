@@ -36,8 +36,7 @@ public class SeedPouch {
                         ForgeRegistries.MENU_TYPES,
                         MODID);
 
-        // Creates a new BlockItem with the id "seedpouch:example_block", combining the
-        // namespace and path
+        
         public static final RegistryObject<Item> SEED_POUCH_ITEM = ITEMS.register("seed_pouch",
                         () -> new PouchItem(
                                         new Item.Properties().tab(CreativeModeTab.TAB_MISC),
@@ -47,6 +46,15 @@ public class SeedPouch {
         public static final RegistryObject<MenuType<PouchContainer>> SEED_POUCH_MENU = MENU_TYPES.register(
                         "seed_pouch",
                         () -> PouchContainer.getMenuType((PouchItem) SEED_POUCH_ITEM.get()));
+
+        public static final RegistryObject<Item> DIRT_POUCH_ITEM = ITEMS.register("dirt_pouch",
+                        () -> new PouchItem(
+                                        new Item.Properties().tab(CreativeModeTab.TAB_MISC),
+                                        () -> Arrays.asList(Items.DIRT)));
+
+        public static final RegistryObject<MenuType<PouchContainer>> DIRT_POUCH_MENU = MENU_TYPES.register(
+                        "dirt_pouch",
+                        () -> PouchContainer.getMenuType((PouchItem) DIRT_POUCH_ITEM.get()));
 
         public SeedPouch() {
                 IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -68,6 +76,7 @@ public class SeedPouch {
                 event.enqueueWork(
                                 () -> {
                                         MenuScreens.register(SEED_POUCH_MENU.get(), PouchScreen::new);
+                                        MenuScreens.register(DIRT_POUCH_MENU.get(), PouchScreen::new);
                                 });
         }
 }
