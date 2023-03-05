@@ -28,7 +28,7 @@ public class PouchScreen extends AbstractContainerScreen<PouchContainer> {
 
     public PouchScreen(PouchContainer container, Inventory playerInv, Component title) {
         super(container, playerInv, title);
-        this.containerRows = 6; // TODO do this properly
+        this.containerRows = container.containerRows; // TODO do this properly
         this.imageHeight = 114 + this.containerRows * 18;
 
         // recompute, same as super

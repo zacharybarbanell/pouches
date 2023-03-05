@@ -60,7 +60,7 @@ public class PouchContainer extends AbstractContainerMenu {
 
 		this.bag = bag;
 		this.bagType = bagType;
-		this.containerRows = 6;
+		this.containerRows = (bagType.getSize() - 1) / 9 + 1;
 		if (!playerInv.player.level.isClientSide) {
 			bagInv = bagType.getInventory(bag);
 		} else {
@@ -68,16 +68,16 @@ public class PouchContainer extends AbstractContainerMenu {
 		}
 
 		// TODO
-		for (int row = 0; row < 1; ++row) {
-			for (int col = 0; col < bagType.getSize(); ++col) {
-				int slot = col + row * 8;
-				addSlot(new Slot(bagInv, slot, 8 + col * 18, 18 + row * 18) {
-					@Override
-					public boolean mayPlace(@NotNull ItemStack stack) {
-						return bagType.isValid(this.getContainerSlot(), stack);
-					}
-				});
-			}
+		for (int i = 0; i < bagType.getSize(); i++) {
+			int row = i / 9;
+			int col = i % 9;
+			int width = row == containerRows - 1 ? (bagType.getSize() - 1) % 9 + 1 : 9;
+			addSlot(new Slot(bagInv, i, 8 + col * 18 + (9 - width) * 9, 18 + row * 18) {
+				@Override
+				public boolean mayPlace(@NotNull ItemStack stack) {
+					return bagType.isValid(this.getContainerSlot(), stack);
+				}
+			});
 		}
 
 		int offset = (this.containerRows - 4) * 18;
