@@ -36,7 +36,6 @@ public class SeedPouch {
                         ForgeRegistries.MENU_TYPES,
                         MODID);
 
-        
         public static final RegistryObject<Item> SEED_POUCH_ITEM = ITEMS.register("seed_pouch",
                         () -> new PouchItem(
                                         new Item.Properties().tab(CreativeModeTab.TAB_MISC),

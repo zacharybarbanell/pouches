@@ -99,7 +99,7 @@ public class PouchItem extends Item {
 		if (entityStack.getCount() > 0) {
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				if (i == player.getInventory().selected) {
-					continue; // prevent item deletion
+					continue; 
 				}
 
 				ItemStack bag = player.getInventory().getItem(i);
