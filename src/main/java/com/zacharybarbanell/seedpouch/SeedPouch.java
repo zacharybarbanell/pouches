@@ -7,7 +7,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -77,5 +79,12 @@ public class SeedPouch {
                                         MenuScreens.register(SEED_POUCH_MENU.get(), PouchScreen::new);
                                         MenuScreens.register(DIRT_POUCH_MENU.get(), PouchScreen::new);
                                 });
+        }
+
+        @SubscribeEvent
+        public void onPickupItem(EntityItemPickupEvent event) {
+                if (PouchItem.onPickupItem(event.getItem(), event.getEntity())) {
+                        event.setCanceled(true);
+                }
         }
 }
