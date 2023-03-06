@@ -39,7 +39,6 @@ import org.jetbrains.annotations.NotNull;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 //import vazkii.botania.client.gui.bag.FlowerPouchContainer;
@@ -54,10 +53,10 @@ import com.zacharybarbanell.seedpouch.helper.ItemBackedInventory;
 import java.util.stream.IntStream;
 
 public class PouchItem extends Item {
-	private Supplier<List<Item>> itemListSupplier;
+	private Supplier<Iterable<Item>> itemListSupplier;
 	private BiMap<Integer, Item> slots;
 
-	public PouchItem(Properties props, Supplier<List<Item>> itemListSupplier) {
+	public PouchItem(Properties props, Supplier<Iterable<Item>> itemListSupplier) {
 		super(props);
 		this.itemListSupplier = itemListSupplier;
 		this.slots = null;
@@ -65,8 +64,8 @@ public class PouchItem extends Item {
 
 	public BiMap<Integer, Item> getSlots() {
 		if (this.slots == null) {
-			List<Item> items = itemListSupplier.get();
-			this.slots = HashBiMap.create(items.size());
+			Iterable<Item> items = itemListSupplier.get();
+			this.slots = HashBiMap.create();
 			int i = 0;
 			for (Item item : items) {
 				this.slots.put(i, item);
@@ -99,7 +98,7 @@ public class PouchItem extends Item {
 		if (entityStack.getCount() > 0) {
 			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 				if (i == player.getInventory().selected) {
-					continue; 
+					continue;
 				}
 
 				ItemStack bag = player.getInventory().getItem(i);

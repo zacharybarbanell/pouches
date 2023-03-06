@@ -7,6 +7,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -41,8 +42,7 @@ public class SeedPouch {
         public static final RegistryObject<Item> SEED_POUCH_ITEM = ITEMS.register("seed_pouch",
                         () -> new PouchItem(
                                         new Item.Properties().tab(CreativeModeTab.TAB_MISC),
-                                        () -> Arrays.asList(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS,
-                                                        Items.BEETROOT_SEEDS)));
+                                        () -> ForgeRegistries.ITEMS.tags().getTag(Tags.Items.SEEDS)));
 
         public static final RegistryObject<MenuType<PouchContainer>> SEED_POUCH_MENU = MENU_TYPES.register(
                         "seed_pouch",
