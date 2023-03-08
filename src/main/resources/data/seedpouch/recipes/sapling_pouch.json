@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "WXW",
+        "W W",
+        " W "
+    ],
+    "key":
+    {
+        "X":
+        {
+            "tag": "minecraft:saplings"
+        },
+        "W":
+        {
+            "tag": "minecraft:wool"
+        }
+    },
+    "result":
+    {
+        "item": "seedpouch:sapling_pouch",
+        "count": 1
+    }
+}

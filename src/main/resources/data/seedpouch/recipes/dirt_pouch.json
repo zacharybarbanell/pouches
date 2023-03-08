@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "WXW",
+        "W W",
+        " W "
+    ],
+    "key":
+    {
+        "X":
+        {
+            "item": "minecraft:dirt"
+        },
+        "W":
+        {
+            "tag": "minecraft:wool"
+        }
+    },
+    "result":
+    {
+        "item": "seedpouch:dirt_pouch",
+        "count": 1
+    }
+}
