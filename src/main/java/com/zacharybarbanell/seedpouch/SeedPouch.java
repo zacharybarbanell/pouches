@@ -2,6 +2,7 @@ package com.zacharybarbanell.seedpouch;
 
 //import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -48,6 +49,15 @@ public class SeedPouch {
                         "seed_pouch",
                         () -> PouchContainer.getMenuType((PouchItem) SEED_POUCH_ITEM.get()));
 
+        public static final RegistryObject<Item> SAPLING_POUCH_ITEM = ITEMS.register("sapling_pouch",
+                        () -> new PouchItem(
+                                        new Item.Properties().tab(CreativeModeTab.TAB_MISC),
+                                        () -> ForgeRegistries.ITEMS.tags().getTag(ItemTags.SAPLINGS)));
+
+        public static final RegistryObject<MenuType<PouchContainer>> SAPLING_POUCH_MENU = MENU_TYPES.register(
+                        "sapling_pouch",
+                        () -> PouchContainer.getMenuType((PouchItem) SAPLING_POUCH_ITEM.get()));
+
         public static final RegistryObject<Item> DIRT_POUCH_ITEM = ITEMS.register("dirt_pouch",
                         () -> new PouchItem(
                                         new Item.Properties().tab(CreativeModeTab.TAB_MISC),
@@ -77,6 +87,7 @@ public class SeedPouch {
                 event.enqueueWork(
                                 () -> {
                                         MenuScreens.register(SEED_POUCH_MENU.get(), PouchScreen::new);
+                                        MenuScreens.register(SAPLING_POUCH_MENU.get(), PouchScreen::new);
                                         MenuScreens.register(DIRT_POUCH_MENU.get(), PouchScreen::new);
                                 });
         }
