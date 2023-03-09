@@ -28,7 +28,7 @@ public class PouchScreen extends AbstractContainerScreen<PouchContainer> {
 
     public PouchScreen(PouchContainer container, Inventory playerInv, Component title) {
         super(container, playerInv, title);
-        this.containerRows = container.containerRows; // TODO do this properly
+        this.containerRows = container.containerRows; 
         this.imageHeight = 114 + this.containerRows * 18;
 
         // recompute, same as super
@@ -68,18 +68,17 @@ public class PouchScreen extends AbstractContainerScreen<PouchContainer> {
             if (slot.container == menu.bagInv && !slot.hasItem()) {
                 int x = this.leftPos + slot.x;
                 int y = this.topPos + slot.y;
-
+                
                 ItemStack stack = new ItemStack(menu.bagType.getSlots().get(slot.index));
-
                 mc.getItemRenderer().renderGuiItem(stack, x, y);
-
             }
         }
+        
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5F);
         RenderSystem.enableBlend();
         RenderSystem.setShaderTexture(0, texture);
-        RenderSystem.depthFunc(GL11C.GL_ALWAYS);
+        RenderSystem.depthFunc(GL11C.GL_GREATER);
 
         for (Slot slot : menu.slots) {
             if (slot.container == menu.bagInv) {
@@ -87,10 +86,22 @@ public class PouchScreen extends AbstractContainerScreen<PouchContainer> {
                 int y = this.topPos + slot.y;
 
                 ms.pushPose();
+                ms.translate(0, 0, mc.getItemRenderer().blitOffset - 900);
                 this.blit(ms, x - 1, y - 1, 7, 139, 18, 18);
                 ms.popPose();
             }
         }
-    }
 
+        for (Slot slot : menu.slots) {
+            if (slot.container == menu.bagInv && slot.hasItem() && slot.getItem().getCount() == 1){
+                int x = this.leftPos + slot.x;
+                int y = this.topPos + slot.y;
+
+                ms.pushPose();
+                ms.translate(0, 0, mc.getItemRenderer().blitOffset + 300);
+                mc.font.drawShadow(ms, "1", x + 11, y + 9, 0xFFFFFF);
+                ms.popPose();
+            }
+        }
+    }
 }
