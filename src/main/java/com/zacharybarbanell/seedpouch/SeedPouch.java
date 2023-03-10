@@ -42,7 +42,7 @@ public class SeedPouch {
 
         public static final RegistryObject<Item> SEED_POUCH_ITEM = ITEMS.register("seed_pouch",
                         () -> new PouchItem(
-                                        new Item.Properties().tab(CreativeModeTab.TAB_MISC),
+                                        new Item.Properties().tab(CreativeModeTab.TAB_MISC).stacksTo(1),
                                         () -> ForgeRegistries.ITEMS.tags().getTag(Tags.Items.SEEDS)));
 
         public static final RegistryObject<MenuType<PouchContainer>> SEED_POUCH_MENU = MENU_TYPES.register(
@@ -51,7 +51,7 @@ public class SeedPouch {
 
         public static final RegistryObject<Item> SAPLING_POUCH_ITEM = ITEMS.register("sapling_pouch",
                         () -> new PouchItem(
-                                        new Item.Properties().tab(CreativeModeTab.TAB_MISC),
+                                        new Item.Properties().tab(CreativeModeTab.TAB_MISC).stacksTo(1),
                                         () -> ForgeRegistries.ITEMS.tags().getTag(ItemTags.SAPLINGS)));
 
         public static final RegistryObject<MenuType<PouchContainer>> SAPLING_POUCH_MENU = MENU_TYPES.register(
@@ -60,7 +60,7 @@ public class SeedPouch {
 
         public static final RegistryObject<Item> DIRT_POUCH_ITEM = ITEMS.register("dirt_pouch",
                         () -> new PouchItem(
-                                        new Item.Properties().tab(CreativeModeTab.TAB_MISC),
+                                        new Item.Properties().tab(CreativeModeTab.TAB_MISC).stacksTo(1),
                                         () -> Arrays.asList(Items.DIRT)));
 
         public static final RegistryObject<MenuType<PouchContainer>> DIRT_POUCH_MENU = MENU_TYPES.register(
