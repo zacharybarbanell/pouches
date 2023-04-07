@@ -28,7 +28,7 @@ public class PouchScreen extends AbstractContainerScreen<PouchContainer> {
 
     public PouchScreen(PouchContainer container, Inventory playerInv, Component title) {
         super(container, playerInv, title);
-        this.containerRows = container.containerRows; 
+        this.containerRows = container.containerRows;
         this.imageHeight = 114 + this.containerRows * 18;
 
         // recompute, same as super
@@ -49,7 +49,10 @@ public class PouchScreen extends AbstractContainerScreen<PouchContainer> {
         RenderSystem.setShaderTexture(0, texture);
         int k = (width - imageWidth) / 2;
         int l = (height - imageHeight) / 2;
-        this.blit(ms, k, l, 0, 0, this.imageWidth, this.containerRows * 18 + 17);
+        this.blit(ms, k, l, 0, 0, this.imageWidth, 17);
+        for (int i = 0; i < this.containerRows; i++) {
+            this.blit(ms, k, l + 17 + i * 18, 0, 17, this.imageWidth, 18);
+        }
         this.blit(ms, k, l + this.containerRows * 18 + 17, 0, 126, this.imageWidth, 96);
 
         for (Slot slot : menu.slots) {
@@ -68,12 +71,11 @@ public class PouchScreen extends AbstractContainerScreen<PouchContainer> {
             if (slot.container == menu.bagInv && !slot.hasItem()) {
                 int x = this.leftPos + slot.x;
                 int y = this.topPos + slot.y;
-                
+
                 ItemStack stack = new ItemStack(menu.bagType.getSlots().get(slot.index));
                 mc.getItemRenderer().renderGuiItem(stack, x, y);
             }
         }
-        
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5F);
         RenderSystem.enableBlend();
@@ -93,7 +95,7 @@ public class PouchScreen extends AbstractContainerScreen<PouchContainer> {
         }
 
         for (Slot slot : menu.slots) {
-            if (slot.container == menu.bagInv && slot.hasItem() && slot.getItem().getCount() == 1){
+            if (slot.container == menu.bagInv && slot.hasItem() && slot.getItem().getCount() == 1) {
                 int x = this.leftPos + slot.x;
                 int y = this.topPos + slot.y;
 
