@@ -35,9 +35,11 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraftforge.network.NetworkHooks;
 
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.mojang.logging.LogUtils;
 
 import java.util.function.Supplier;
 
@@ -56,6 +58,8 @@ public class PouchItem extends Item {
 	private Supplier<Iterable<Item>> itemListSupplier;
 	private BiMap<Integer, Item> slots;
 
+	private static final Logger LOGGER = LogUtils.getLogger();
+
 	public PouchItem(Properties props, Supplier<Iterable<Item>> itemListSupplier) {
 		super(props);
 		this.itemListSupplier = itemListSupplier;
@@ -68,8 +72,13 @@ public class PouchItem extends Item {
 			this.slots = HashBiMap.create();
 			int i = 0;
 			for (Item item : items) {
-				this.slots.put(i, item);
-				i++;
+				if (!this.slots.containsValue(item)) {
+					this.slots.put(i, item);
+					i++;
+				}
+				else {
+					LOGGER.warn("Duplicate item in pouch specification: {}", item);
+				}
 			}
 		}
 		return this.slots;
