@@ -47,6 +47,7 @@ public class PouchScreen extends AbstractContainerScreen<PouchContainer> {
         Minecraft mc = Minecraft.getInstance();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, texture);
+        RenderSystem.disableDepthTest();
         int k = (width - imageWidth) / 2;
         int l = (height - imageHeight) / 2;
         this.blit(ms, k, l, 0, 0, this.imageWidth, 17);
@@ -80,7 +81,7 @@ public class PouchScreen extends AbstractContainerScreen<PouchContainer> {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5F);
         RenderSystem.enableBlend();
         RenderSystem.setShaderTexture(0, texture);
-        RenderSystem.depthFunc(GL11C.GL_GREATER);
+        RenderSystem.disableDepthTest();
 
         for (Slot slot : menu.slots) {
             if (slot.container == menu.bagInv) {
